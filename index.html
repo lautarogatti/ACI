@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Cultural Conurbana</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+    <main class="container-fluid" id="mainContainer">
+        <!-- contenedor de las secciones titulo y filtros -->
+        <section class="row container-fluid" id="contenedorTf">
+            <!-- seccion titulo -->
+            <div class="row oneScreen sectionTitle" id="sectionTitle">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h1 class="chakra-petch-regular text-start tituloPrincipal">agenda <br> cultural <br> conurbana</h1>
+                </div>
+            </div>
+            <!-- seccion filtros -->
+            <div class="row sectionFiltros container-fluid d-flex row-gap-3 mb-4 align-content-center" id="sectionFiltros">
+                <!-- filtro eventos -->
+                <div class="row container-fluid contenedorFiltro">
+                    <div class="col-2 d-flex justify-content-center align-items-center ">
+                        <img id="btnIzqFiltroEventos" class="btnFiltro rotar180" src="/img/whiteArrow.png" alt="imagen flecha señalando hacia la izquierda">
+                    </div>
+                    <div class="col-8 filtroContainer d-flex justify-content-center align-items-center">
+                        <p class="chakra-petch-regular fs-1 lblFiltro" id="lblFiltroEventos">eventos</p>
+                    </div>
+                    <div class="col-2 d-flex justify-content-center align-items-center">
+                                            <img id="btnDerFiltroEventos" class="btnFiltro" src="/img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha">
+                    </div>
+                </div>
+                <!-- filtro lugares -->
+                <div class="row container-fluid contenedorFiltro">
+                    <div class="col-2 d-flex justify-content-center align-items-center">
+                        <img id="btnIzqFiltroLugares" class="btnFiltro rotar180" src="/img/whiteArrow.png" alt="imagen flecha señalando hacia la izquierda">
+                    </div>
+                    <div class="col-8 filtroContainer d-flex justify-content-center align-items-center">
+                        <p class="chakra-petch-regular fs-1 lblFiltro" id="lblFiltroLugares">en zona sur</p>
+                    </div>
+                    <div class="col-2 d-flex justify-content-center align-items-center">
+                                            <img id="btnDerFiltroLugares" class="btnFiltro" src="/img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- contenedor de la barra de mes y lista de eventos    -->
+        <section class="row container-fluid" id="contenedorMl">
+            <!-- contenedor nombre del mes -->
+            <div class="row container-fluid" id="contenedorMes">
+                <div class="container-fluid row border-2 border-bottom border-white bg-black">
+                    <div class="col-2"></div>
+                    <p id="monthTitle" class="chakra-petch-regular col-8 text-center fs-5 text-light">noviembre</p>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+            <!-- contenedor lista de fechas -->
+            <div class="row container-fluid vh-56 overflow-y-auto flex-column overflow-y-auto flex-nowrap chakra-petch-regular" id="fechasContainer">
+                </div>
+        </section>
+    </main>
+    <footer class="bg-black chakra-petch-regular text-light text-center pb-2 pt-2 border-2 border-top border-white">
+        <p>derechos reservados aci</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
