@@ -1,6 +1,6 @@
 import Evento from "../classes/Evento.js"
-import {tEexpoArte, tEferia, tEfiesta, tEgastro, tEludico, tEmusica, tEtaller, tEteatro} from "./scripts/tiposDeEventos.js";
-import {laMadriguera, barMutar, artesResistir, elPasaje} from "./scripts/centrosCulturales.js"
+import {tEexpoArte, tEferia, tEfiesta, tEgastro, tEludico, tEmusica, tEtaller, tEteatro} from "../scripts/tiposDeEventos.js";
+import {laMadriguera, barMutar, artesResistir, elPasaje} from "../scripts/centrosCulturales.js"
 
 
 const baileInolvidable = new Evento(2, "baile inolvidable", artesResistir, new Date(2025, 10, 7, 23, 59), "Se viene la CUARTA EDICIÓN del fiestón que ya conocés. ¡Vuelve el BAILE INOLVIDABLE!🔥Presentamos la ultima edición del año con un F2F que te va a hacer bailar toda la noche 🫵🏻 Musicalizan🎧 @dj.monkey.arg 🆚 @marceloalvarezdj¿Listxs para ese duelo musical? 💣 Y como siempre, bancamos la fiesta y el bolsillo. La entrada es libre y gratuita, y ademas...✨¡HAY PROMO!✨ 🚀 2 TRAGOS x $10.000 🚀 (En fernet y vodka 🤌) ¿Nos vemos en la pista? 💿", "/img/baileInolvidableFlyer.png", tEfiesta);
