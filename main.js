@@ -17,6 +17,7 @@ const contenedorSectionFiltros = document.getElementById("sectionFiltros");
 const contenedorMl = document.getElementById("contenedorMl");
 const contenedorMain =document.getElementById("mainContainer");
 const contenedorMes = document.getElementById("contenedorMes");
+let estado = "mobile";
 //constantes
 //fechas del mes
 let fechas = [];
@@ -206,14 +207,64 @@ function cambiarAmodoDesktop(){
     contenedorSectionTitle.classList.remove("oneScreen");
     contenedorMain.classList.add("row");
     contenedorMl.classList.add("col-7", "overflow-y-auto", "oneScreen");
-    fechasContainer.classList.remove("overflow-y-auto", "row", "vh-56");
     contenedorMes.classList.add("sticky-top");
+    fechasContainer.classList.remove("overflow-y-auto", "row", "vh-56");
     fechasContainer.classList.add("align-items-center");
 }
 
-if(window.innerWidth >= 992){
-    cambiarAmodoDesktop();
+function setearModoDesktop(){
+    vaciarClassList(contenedorMain);
+    contenedorMain.classList.add("container-fluid", "row");
+    vaciarClassList(contenedorTf);
+    contenedorTf.classList.add("container-fluid", "col-5", "oneScreen");
+    vaciarClassList(contenedorSectionTitle);
+    contenedorSectionTitle.classList.add("row", "sectionTitle");
+    vaciarClassList(contenedorSectionFiltros);
+    contenedorSectionFiltros.classList.add("row", "sectionFiltros", "container-fluid", "d-flex", "row-gap-3", "mb-4", "align-content-center");
+    vaciarClassList(contenedorMl);
+    contenedorMl.classList.add("row", "container-fluid", "col-7", "overflow-y-auto", "oneScreen");
+    vaciarClassList(contenedorMes);
+    contenedorMes.classList.add("row", "container-fluid", "sticky-top");
+    vaciarClassList(fechasContainer);
+    fechasContainer.classList.add("container-fluid", "flex-column", "flex-nowrap", "chakra-petch-regular", "align-items-center");
 }
+
+function setearModoMobile() {
+    vaciarClassList(contenedorMain);
+    contenedorMain.classList.add("container-fluid");
+    vaciarClassList(contenedorTf);
+    contenedorTf.classList.add("row", "container-fluid");
+    vaciarClassList(contenedorSectionTitle);
+    contenedorSectionTitle.classList.add("row", "oneScreen", "sectionTitle");
+    vaciarClassList(contenedorSectionFiltros);
+    contenedorSectionFiltros.classList.add("row", "sectionFiltros", "container-fluid", "d-flex", "row-gap-3", "mb-4", "align-content-center");
+    vaciarClassList(contenedorMl);
+    contenedorMl.classList.add("row", "container-fluid");
+    vaciarClassList(contenedorMes);
+    contenedorMes.classList.add("row", "container-fluid");
+    vaciarClassList(fechasContainer);
+    fechasContainer.classList.add("row", "container-fluid", "vh-56", "overflow-y-auto", "flex-column", "flex-nowrap", "chakra-petch-regular")
+}
+
+function vaciarClassList(objeto){
+    objeto.classList.forEach( (value, key, listObj) =>{
+        objeto.classList.remove(value);
+    })
+}
+
+function setearModo(){
+    if(window.innerWidth >= 992){
+        setearModoDesktop();
+        console.log(estado)
+    } else if (window.innerWidth < 992){
+        setearModoMobile();
+        console.log(estado)
+    }
+}
+
+window.onresize = setearModo;
+setearModo();
 listaEventosFiltrada = filtrarListaEventos(eventos)
 fechas = generarListaDeFechas(eventos);
+//modoCheck();
 mostrarEventos(eventos, fechas);
