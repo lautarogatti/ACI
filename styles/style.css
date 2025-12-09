@@ -108,7 +108,7 @@ html{
 }
 
 
-@media (min-width: 992px) {
+@media (min-width: 1025px) {
   html{
     font-size: 27px !important;
   }

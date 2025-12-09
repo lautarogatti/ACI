@@ -201,17 +201,6 @@ function mostrarEventos(listaEventos, listaFechas){
     }
 }
 
-function cambiarAmodoDesktop(){
-    contenedorTf.classList.remove("row");
-    contenedorTf.classList.add("col-5", "oneScreen");
-    contenedorSectionTitle.classList.remove("oneScreen");
-    contenedorMain.classList.add("row");
-    contenedorMl.classList.add("col-7", "overflow-y-auto", "oneScreen");
-    contenedorMes.classList.add("sticky-top");
-    fechasContainer.classList.remove("overflow-y-auto", "row", "vh-56");
-    fechasContainer.classList.add("align-items-center");
-}
-
 function setearModoDesktop(){
     vaciarClassList(contenedorMain);
     contenedorMain.classList.add("container-fluid", "row");
@@ -253,10 +242,10 @@ function vaciarClassList(objeto){
 }
 
 function setearModo(){
-    if(window.innerWidth >= 992){
+    if(window.innerWidth > 1024){
         setearModoDesktop();
         console.log(estado)
-    } else if (window.innerWidth < 992){
+    } else if (window.innerWidth <= 1024){
         setearModoMobile();
         console.log(estado)
     }
