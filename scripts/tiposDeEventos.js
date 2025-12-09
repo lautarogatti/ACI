@@ -1,4 +1,4 @@
-import TipoEvento from "./classes/TipoEvento.js"
+import TipoEvento from "../classes/TipoEvento.js"
 const tEmusica = new TipoEvento(1,"música");
 const tEteatro = new TipoEvento(2,"teatro");
 const tEfiesta = new TipoEvento(3, "fiesta");

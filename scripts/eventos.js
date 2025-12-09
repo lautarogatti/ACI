@@ -1,4 +1,4 @@
-import Evento from "./classes/Evento.js"
+import Evento from "../classes/Evento.js"
 import {tEexpoArte, tEferia, tEfiesta, tEgastro, tEludico, tEmusica, tEtaller, tEteatro} from "./scripts/tiposDeEventos.js";
 import {laMadriguera, barMutar, artesResistir, elPasaje} from "./scripts/centrosCulturales.js"
 

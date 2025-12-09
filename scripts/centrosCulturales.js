@@ -1,4 +1,4 @@
-import CentroCultural from "./classes/CentroCultural.js";
+import CentroCultural from "../classes/CentroCultural.js";
 import {adrogue,temperley,banfield,avellaneda} from "./scripts/localidades.js"
 import zonaSur from "./scripts/zonas.js"
 const laMadriguera = new CentroCultural(1, "la madriguera", "sta maría de oro 8", temperley, zonaSur, "https://maps.app.goo.gl/tisBRXgxarxK51BS7");
