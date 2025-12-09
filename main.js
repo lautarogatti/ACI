@@ -1,5 +1,5 @@
 //imports
-import eventos from "scripts/eventos.js";
+import eventos from "/scripts/eventos.js";
 import {tEexpoArte, tEferia, tEfiesta, tEgastro, tEludico, tEmusica, tEtaller, tEteatro} from "scripts/tiposDeEventos.js";
 import {adrogue,temperley,banfield,avellaneda} from "scripts/localidades.js"
 import FiltroHandler from "classes/FiltroHandler.js";
