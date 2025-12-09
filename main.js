@@ -1,8 +1,8 @@
 //imports
 import eventos from "/scripts/eventos.js";
-import {tEexpoArte, tEferia, tEfiesta, tEgastro, tEludico, tEmusica, tEtaller, tEteatro} from "scripts/tiposDeEventos.js";
-import {adrogue,temperley,banfield,avellaneda} from "scripts/localidades.js"
-import FiltroHandler from "classes/FiltroHandler.js";
+import {tEexpoArte, tEferia, tEfiesta, tEgastro, tEludico, tEmusica, tEtaller, tEteatro} from "/scripts/tiposDeEventos.js";
+import {adrogue,temperley,banfield,avellaneda} from "/scripts/localidades.js"
+import FiltroHandler from "/classes/FiltroHandler.js";
 //elementos del dom
 const fechasContainer = document.getElementById("fechasContainer");
 const lblFiltroEventos = document.getElementById("lblFiltroEventos");
