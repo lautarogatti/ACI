@@ -17,7 +17,6 @@ const contenedorSectionFiltros = document.getElementById("sectionFiltros");
 const contenedorMl = document.getElementById("contenedorMl");
 const contenedorMain =document.getElementById("mainContainer");
 const contenedorMes = document.getElementById("contenedorMes");
-let estado = "mobile";
 //constantes
 //fechas del mes
 let fechas = [];
@@ -211,7 +210,7 @@ function setearModoDesktop(){
     vaciarClassList(contenedorSectionFiltros);
     contenedorSectionFiltros.classList.add("row", "sectionFiltros", "container-fluid", "d-flex", "row-gap-3", "mb-4", "align-content-center");
     vaciarClassList(contenedorMl);
-    contenedorMl.classList.add("row", "container-fluid", "col-7", "overflow-y-auto", "oneScreen");
+    contenedorMl.classList.add("container-fluid", "col-7", "overflow-y-auto", "oneScreen");
     vaciarClassList(contenedorMes);
     contenedorMes.classList.add("row", "container-fluid", "sticky-top");
     vaciarClassList(fechasContainer);
@@ -244,16 +243,56 @@ function vaciarClassList(objeto){
 function setearModo(){
     if(window.innerWidth > 1024){
         setearModoDesktop();
-        console.log(estado)
     } else if (window.innerWidth <= 1024){
         setearModoMobile();
-        console.log(estado)
     }
+}
+
+function dibujarDataFecha(contenedor){
+    contenedor.innerHTML = "";
+    const headerEvento = document.createElement("div");
+    headerEvento.classList.add("row", "text-light", "bg-black", "chakra-petch-regular");
+    headerEvento.innerHTML = `<div class="container-fluid row" id="barraNavegacion">
+                                <div class="col-6 ps-2" id="contenedorBack">
+                                    <img id="btnGetBack" class="btnFiltro rotar180" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha"></div>
+                                <div class="col-6 text-end text-danger pe-3" id="contenedorEstado">
+                                    <p>CANCELADO</P>
+                                </div>
+                            </div>
+                            <div class="text-center chakra-petch-bold fs-4" id="contenedorTitulo"><p>LATINGEISHA</p></div>
+                            <div class="text-center fs-8" id="contenedorCentroCultural"><p>bar mutar | avellaneda</p></div>
+                            <div class="container-fluid text-center row">
+                                <div class="col-6 fs-7"><p>av.mitre 982</p></div>
+                                <div class="col-6 chakra-petch-bold"><p>23:59</p></div>
+                            </div>
+                            <div class="text-center border-top border-light pt-1 pb-1" id="contenedorMaps"><p>como llegar →</p></div>`
+    contenedorMl.appendChild(headerEvento);
+    const contDescripcion = document.createElement("div");
+    contDescripcion.classList.add("row");
+    contDescripcion.innerHTML = `<div class="text-center chakra-petch-regular fs-9"><p>ZONA SUR ESTAN READYS PARA ESTE FECHON??? EL VIERNES 12/9 lxs esperamos en @barmutar para vivir una noche épica
+
+Abriendo la noche con muchísimo groove @robertoamerise y @clarrk__ junto a @maxiprieto_ presentando sus canciones +Invitados especiales y ATENCIÓN OPEN MIC para quienes quieran subirse a tirar unas magias
+
+Nos acompañan durante este nochón @el.soud en el hosteo Y musicalizando @81.clfs con tremendo DJ SET
+
+Cierra la noche con un SHOW FULL BAND FANTÁSTICO @latingeisha420 presentando el año del dragón, canciones nuevas, viejas y sorpresas
+
+Obvio después del show nos quedamos bailando unos HH y tomando algo
+
+NOS VEMOS PRONTO
+
+ENTRADAS X TRANSFERENCIA
+
+Produce: @tercerojjo y @altillorecords</p></div>
+                                 <div><img src="" alt="aca va el flyer"></div>
+    `
+    contenedorMl.appendChild(contDescripcion);
+    contenedorMl.classList.add("overflow-y-auto");
 }
 
 window.onresize = setearModo;
 setearModo();
 listaEventosFiltrada = filtrarListaEventos(eventos)
 fechas = generarListaDeFechas(eventos);
-//modoCheck();
 mostrarEventos(eventos, fechas);
+dibujarDataFecha(contenedorMl);
