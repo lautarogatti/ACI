@@ -24,6 +24,15 @@ html{
   height: 2rem;
   width: 2rem;
 }
+
+#btnGetBack{
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.seleccionable{
+  cursor: pointer;
+}
 .rotar180{
   transform: rotate(180deg);
 }
@@ -46,6 +55,10 @@ html{
 
 .fs-9{
   font-size: 0.5rem;
+}
+
+.flyerEvento {
+  width: 75%;
 }
 
 /*font classes*/
@@ -111,11 +124,34 @@ html{
 
 @media (min-width: 768px) {
   html{
-    font-size: 30px !important;
+    font-size: 23px !important;
   }
    .lblFiltro{
     font-size: 1.4rem !important;
   }
+}
+
+@media (min-width: 992px){
+.sectionTitle{
+  height: 70%;
+}
+
+.sectionFiltros{
+  height: 20%;
+  justify-content: center;
+}
+
+.contenedorFiltro{
+  width: 75%;
+}
+
+#fechasContainer{
+  height: 90%;
+}
+
+#contenedorMes {
+  height: 10%;
+}
 }
 
 
@@ -124,14 +160,7 @@ html{
     font-size: 27px !important;
   }
 
-    .sectionTitle{
-    height: 70%;
-  }
 
-  .sectionFiltros{
-    height: 20%;
-    justify-content: center;
-  }
 
   .tituloPrincipal{
     font-size: 1.8rem;
@@ -144,14 +173,6 @@ html{
 
   .lblFiltro{
     font-size: 1.1rem !important;
-  }
-
-  .contenedorFiltro{
-    width: 75%;
-  }
-
-  #fechasContainer{
-    height: 90%;
   }
 }
 

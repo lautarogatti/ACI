@@ -17,6 +17,7 @@ const contenedorSectionFiltros = document.getElementById("sectionFiltros");
 const contenedorMl = document.getElementById("contenedorMl");
 const contenedorMain =document.getElementById("mainContainer");
 const contenedorMes = document.getElementById("contenedorMes");
+const envolturaMl = document.getElementById("envolturaMl");
 //constantes
 //fechas del mes
 let fechas = [];
@@ -30,6 +31,8 @@ const filtroEventos = new FiltroHandler(opcFiltroEventos);
 const filtroLugares = new FiltroHandler(opcFiltroLugares);
 //lista de eventos filtrada en base a las opciones elegidas en los filtros
 let listaEventosFiltrada = [];
+
+const listaContenedores = [contenedorMain, contenedorTf, contenedorSectionTitle, contenedorSectionFiltros, contenedorMl, contenedorMes, fechasContainer];
 
 //eventos
 //boton izq filtro tipo de evento
@@ -86,7 +89,7 @@ function filtrarListaEventos(listaEventos){
             listaFiltrada = listaEventos;
         }
     }
-    return listaFiltrada;
+    return listaFiltrada; 
 }
 function generarListaDeFechas(listaEventos){
     return ordenarDeMenorAmayor(obtenerFechas(listaEventos));
@@ -188,12 +191,17 @@ function mostrarEventos(listaEventos, listaFechas){
                     const eventito = document.createElement("div");
                     eventito.classList.add("ps-2", "border-2", "border-bottom", "border-black", "pt-2", "pb-2")
                     eventito.innerHTML = `<div class="row">
-                                        <p class="chakra-petch-bold fs-6 text">${evento.nombre}</p>
+                                        <p class="chakra-petch-bold fs-6 text seleccionable" id="tituloEvento${evento.id}">${evento.nombre.toUpperCase()}</p>
                                     </div>
                                     <div class="row">
                                         <p class="chakra-petch-regular fs-6 text">${evento.centroCultural.nombre} | ${evento.centroCultural.localidad.nombre}</p>
                                     </div>`
+                    
                     contenedorEventos.appendChild(eventito);
+                    let tituloEvento = document.getElementById(`tituloEvento${evento.id}`);
+                    tituloEvento.addEventListener('click', () => {
+                        dibujarDataFecha(evento.id);
+                    })
                 }
             })
         })
@@ -201,98 +209,80 @@ function mostrarEventos(listaEventos, listaFechas){
 }
 
 function setearModoDesktop(){
-    vaciarClassList(contenedorMain);
+    vaciarClassList(listaContenedores);
     contenedorMain.classList.add("container-fluid", "row");
-    vaciarClassList(contenedorTf);
-    contenedorTf.classList.add("container-fluid", "col-5", "oneScreen");
-    vaciarClassList(contenedorSectionTitle);
+    contenedorTf.classList.add("container-fluid", "col-5", "oneScreen", "border-end", "border-black");
     contenedorSectionTitle.classList.add("row", "sectionTitle");
-    vaciarClassList(contenedorSectionFiltros);
     contenedorSectionFiltros.classList.add("row", "sectionFiltros", "container-fluid", "d-flex", "row-gap-3", "mb-4", "align-content-center");
-    vaciarClassList(contenedorMl);
     contenedorMl.classList.add("container-fluid", "col-7", "overflow-y-auto", "oneScreen");
-    vaciarClassList(contenedorMes);
     contenedorMes.classList.add("row", "container-fluid", "sticky-top");
-    vaciarClassList(fechasContainer);
     fechasContainer.classList.add("container-fluid", "flex-column", "flex-nowrap", "chakra-petch-regular", "align-items-center");
 }
 
 function setearModoMobile() {
-    vaciarClassList(contenedorMain);
+    vaciarClassList(listaContenedores);
     contenedorMain.classList.add("container-fluid");
-    vaciarClassList(contenedorTf);
     contenedorTf.classList.add("row", "container-fluid");
-    vaciarClassList(contenedorSectionTitle);
     contenedorSectionTitle.classList.add("row", "oneScreen", "sectionTitle");
-    vaciarClassList(contenedorSectionFiltros);
     contenedorSectionFiltros.classList.add("row", "sectionFiltros", "container-fluid", "d-flex", "row-gap-3", "mb-4", "align-content-center");
-    vaciarClassList(contenedorMl);
     contenedorMl.classList.add("row", "container-fluid");
-    vaciarClassList(contenedorMes);
     contenedorMes.classList.add("row", "container-fluid");
-    vaciarClassList(fechasContainer);
     fechasContainer.classList.add("row", "container-fluid", "vh-56", "overflow-y-auto", "flex-column", "flex-nowrap", "chakra-petch-regular")
 }
 
-function vaciarClassList(objeto){
-    objeto.classList.forEach( (value, key, listObj) =>{
-        objeto.classList.remove(value);
-    })
+function vaciarClassList(objetos){
+    objetos.forEach(objeto => {
+        objeto.className = "";
+    });
 }
 
 function setearModo(){
-    if(window.innerWidth > 1024){
+    if(window.innerWidth >= 992){
         setearModoDesktop();
-    } else if (window.innerWidth <= 1024){
+    } else if (window.innerWidth < 992){
         setearModoMobile();
     }
 }
-
-function dibujarDataFecha(contenedor){
-    contenedor.innerHTML = "";
+let pantallaDataFecha = document.createElement("div");
+function dibujarDataFecha(eventoId){
+    let evento = eventos.find(evento => evento.id === eventoId);
+    console.log(evento)
+    pantallaDataFecha.innerHTML = "";
     const headerEvento = document.createElement("div");
     headerEvento.classList.add("row", "text-light", "bg-black", "chakra-petch-regular");
     headerEvento.innerHTML = `<div class="container-fluid row" id="barraNavegacion">
                                 <div class="col-6 ps-2" id="contenedorBack">
-                                    <img id="btnGetBack" class="btnFiltro rotar180" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha"></div>
+                                    <img id="btnGetBack" class="rotar180 seleccionable" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha"></div>
                                 <div class="col-6 text-end text-danger pe-3" id="contenedorEstado">
                                     <p>CANCELADO</P>
                                 </div>
                             </div>
-                            <div class="text-center chakra-petch-bold fs-4" id="contenedorTitulo"><p>LATINGEISHA</p></div>
-                            <div class="text-center fs-8" id="contenedorCentroCultural"><p>bar mutar | avellaneda</p></div>
+                            <div class="text-center chakra-petch-bold fs-4" id="contenedorTitulo"><p>${evento.nombre.toUpperCase()}</p></div>
+                            <div class="text-center fs-8" id="contenedorCentroCultural"><p>${evento.centroCultural.nombre} | ${evento.centroCultural.localidad.nombre}</p></div>
                             <div class="container-fluid text-center row">
-                                <div class="col-6 fs-7"><p>av.mitre 982</p></div>
-                                <div class="col-6 chakra-petch-bold"><p>23:59</p></div>
+                                <div class="col-6 fs-7"><p>${evento.centroCultural.direccion}</p></div>
+                                <div class="col-6 chakra-petch-bold"><p>${evento.fechaHora.getHours()}:${evento.fechaHora.getMinutes()}</p></div>
                             </div>
-                            <div class="text-center border-top border-light pt-1 pb-1" id="contenedorMaps"><p>como llegar →</p></div>`
-    contenedorMl.appendChild(headerEvento);
+                            <div class="text-center border-top border-light pt-1 pb-1 seleccionable" id="contenedorMaps"><a href="${evento.centroCultural.linkDireccion}">como llegar →</a></div>`
+    pantallaDataFecha.appendChild(headerEvento);
     const contDescripcion = document.createElement("div");
     contDescripcion.classList.add("row");
-    contDescripcion.innerHTML = `<div class="text-center chakra-petch-regular fs-9"><p>ZONA SUR ESTAN READYS PARA ESTE FECHON??? EL VIERNES 12/9 lxs esperamos en @barmutar para vivir una noche épica
-
-Abriendo la noche con muchísimo groove @robertoamerise y @clarrk__ junto a @maxiprieto_ presentando sus canciones +Invitados especiales y ATENCIÓN OPEN MIC para quienes quieran subirse a tirar unas magias
-
-Nos acompañan durante este nochón @el.soud en el hosteo Y musicalizando @81.clfs con tremendo DJ SET
-
-Cierra la noche con un SHOW FULL BAND FANTÁSTICO @latingeisha420 presentando el año del dragón, canciones nuevas, viejas y sorpresas
-
-Obvio después del show nos quedamos bailando unos HH y tomando algo
-
-NOS VEMOS PRONTO
-
-ENTRADAS X TRANSFERENCIA
-
-Produce: @tercerojjo y @altillorecords</p></div>
-                                 <div><img src="" alt="aca va el flyer"></div>
+    contDescripcion.innerHTML = `<div class="chakra-petch-regular fs-8 ps-5 pe-5 mt-3"><p>${evento.descripcion}</p></div>
+                                 <div class="container-fluid d-flex justify-content-center mt-3 mb-3"><img class="flyerEvento" src="${evento.img}" alt="aca va el flyer"></div>
     `
-    contenedorMl.appendChild(contDescripcion);
+    pantallaDataFecha.appendChild(contDescripcion);
     contenedorMl.classList.add("overflow-y-auto");
+    contenedorMl.replaceChild(pantallaDataFecha, envolturaMl);
+    const btnGetBack = document.getElementById("btnGetBack");
+    btnGetBack.addEventListener('click', () =>{
+        contenedorMl.replaceChild(envolturaMl, pantallaDataFecha);
+    } )
 }
 
+
+
 window.onresize = setearModo;
-setearModo();
+window.onload = setearModo;
 listaEventosFiltrada = filtrarListaEventos(eventos)
 fechas = generarListaDeFechas(eventos);
 mostrarEventos(eventos, fechas);
-//dibujarDataFecha(contenedorMl);

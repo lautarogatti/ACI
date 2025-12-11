@@ -22,41 +22,43 @@
                 <!-- filtro eventos -->
                 <div class="row container-fluid contenedorFiltro">
                     <div class="col-2 d-flex justify-content-center align-items-center ">
-                        <img id="btnIzqFiltroEventos" class="btnFiltro rotar180" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la izquierda">
+                        <img id="btnIzqFiltroEventos" class="btnFiltro rotar180 seleccionable" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la izquierda">
                     </div>
                     <div class="col-8 filtroContainer d-flex justify-content-center align-items-center">
                         <p class="chakra-petch-regular fs-1 lblFiltro" id="lblFiltroEventos">eventos</p>
                     </div>
                     <div class="col-2 d-flex justify-content-center align-items-center">
-                                            <img id="btnDerFiltroEventos" class="btnFiltro" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha">
+                                            <img id="btnDerFiltroEventos" class="btnFiltro seleccionable" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha">
                     </div>
                 </div>
                 <!-- filtro lugares -->
                 <div class="row container-fluid contenedorFiltro">
                     <div class="col-2 d-flex justify-content-center align-items-center">
-                        <img id="btnIzqFiltroLugares" class="btnFiltro rotar180" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la izquierda">
+                        <img id="btnIzqFiltroLugares" class="btnFiltro rotar180 seleccionable" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la izquierda">
                     </div>
                     <div class="col-8 filtroContainer d-flex justify-content-center align-items-center">
                         <p class="chakra-petch-regular fs-1 lblFiltro" id="lblFiltroLugares">en zona sur</p>
                     </div>
                     <div class="col-2 d-flex justify-content-center align-items-center">
-                                            <img id="btnDerFiltroLugares" class="btnFiltro" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha">
+                                            <img id="btnDerFiltroLugares" class="btnFiltro seleccionable" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha">
                     </div>
                 </div>
             </div>
         </section>
         <!-- contenedor de la barra de mes y lista de eventos    -->
         <section class="row container-fluid" id="contenedorMl">
-            <!-- contenedor nombre del mes -->
-            <div class="row container-fluid" id="contenedorMes">
-                <div class="container-fluid row border-2 border-bottom border-white bg-black">
-                    <div class="col-2"></div>
-                    <p id="monthTitle" class="chakra-petch-regular col-8 text-center fs-5 text-light">noviembre</p>
-                    <div class="col-2"></div>
+            <div id="envolturaMl">
+                <!-- contenedor nombre del mes -->
+                <div class="row container-fluid" id="contenedorMes">
+                    <div class="container-fluid row border-2 border-bottom border-white bg-black">
+                        <div class="col-2"></div>
+                        <p id="monthTitle" class="chakra-petch-regular col-8 text-center fs-4 text-light">noviembre</p>
+                        <div class="col-2"></div>
+                    </div>
                 </div>
-            </div>
-            <!-- contenedor lista de fechas -->
-            <div class="row container-fluid vh-56 overflow-y-auto flex-column flex-nowrap chakra-petch-regular" id="fechasContainer">
+                <!-- contenedor lista de fechas -->
+                <div class="row container-fluid vh-56 overflow-y-auto flex-column flex-nowrap chakra-petch-regular" id="fechasContainer">
+                </div>
             </div>
         </section>
     </main>
