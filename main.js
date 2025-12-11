@@ -295,4 +295,4 @@ setearModo();
 listaEventosFiltrada = filtrarListaEventos(eventos)
 fechas = generarListaDeFechas(eventos);
 mostrarEventos(eventos, fechas);
-dibujarDataFecha(contenedorMl);
+//dibujarDataFecha(contenedorMl);
