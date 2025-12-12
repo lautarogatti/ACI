@@ -18,6 +18,7 @@ const contenedorMl = document.getElementById("contenedorMl");
 const contenedorMain =document.getElementById("mainContainer");
 const contenedorMes = document.getElementById("contenedorMes");
 const envolturaMl = document.getElementById("envolturaMl");
+const envolturaMain = document.getElementById("envolturaMain");
 //constantes
 //fechas del mes
 let fechas = [];
@@ -32,7 +33,9 @@ const filtroLugares = new FiltroHandler(opcFiltroLugares);
 //lista de eventos filtrada en base a las opciones elegidas en los filtros
 let listaEventosFiltrada = [];
 
-const listaContenedores = [contenedorMain, contenedorTf, contenedorSectionTitle, contenedorSectionFiltros, contenedorMl, contenedorMes, fechasContainer];
+let estadoActivo = "";
+
+const listaContenedores = [envolturaMain, contenedorTf, contenedorSectionTitle, contenedorSectionFiltros, contenedorMl, contenedorMes, fechasContainer];
 
 //eventos
 //boton izq filtro tipo de evento
@@ -210,7 +213,7 @@ function mostrarEventos(listaEventos, listaFechas){
 
 function setearModoDesktop(){
     vaciarClassList(listaContenedores);
-    contenedorMain.classList.add("container-fluid", "row");
+    envolturaMain.classList.add("container-fluid", "row");
     contenedorTf.classList.add("container-fluid", "col-5", "oneScreen", "border-end", "border-black");
     contenedorSectionTitle.classList.add("row", "sectionTitle");
     contenedorSectionFiltros.classList.add("row", "sectionFiltros", "container-fluid", "d-flex", "row-gap-3", "mb-4", "align-content-center");
@@ -221,7 +224,7 @@ function setearModoDesktop(){
 
 function setearModoMobile() {
     vaciarClassList(listaContenedores);
-    contenedorMain.classList.add("container-fluid");
+    envolturaMain.classList.add("container-fluid");
     contenedorTf.classList.add("row", "container-fluid");
     contenedorSectionTitle.classList.add("row", "oneScreen", "sectionTitle");
     contenedorSectionFiltros.classList.add("row", "sectionFiltros", "container-fluid", "d-flex", "row-gap-3", "mb-4", "align-content-center");
@@ -237,33 +240,40 @@ function vaciarClassList(objetos){
 }
 
 function setearModo(){
-    if(window.innerWidth >= 992){
+    if(window.innerWidth >= 992 && estadoActivo === "mobile"){
         setearModoDesktop();
-    } else if (window.innerWidth < 992){
+        estadoActivo = "desktop"
+    } else if (window.innerWidth < 992 && estadoActivo === "desktop"){
         setearModoMobile();
+        estadoActivo = "mobile"
     }
 }
 let pantallaDataFecha = document.createElement("div");
 function dibujarDataFecha(eventoId){
     let evento = eventos.find(evento => evento.id === eventoId);
-    console.log(evento)
+    let minutos;
+    if(evento.fechaHora.getMinutes() === 0){
+        minutos = "00"
+    }
+    else{
+        minutos = evento.fechaHora.getMinutes();
+    }
     pantallaDataFecha.innerHTML = "";
     const headerEvento = document.createElement("div");
     headerEvento.classList.add("row", "text-light", "bg-black", "chakra-petch-regular");
     headerEvento.innerHTML = `<div class="container-fluid row" id="barraNavegacion">
-                                <div class="col-6 ps-2" id="contenedorBack">
-                                    <img id="btnGetBack" class="rotar180 seleccionable" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha"></div>
-                                <div class="col-6 text-end text-danger pe-3" id="contenedorEstado">
-                                    <p>CANCELADO</P>
+                                    <div class="col-6 ps-2" id="contenedorBack">
+                                        <img id="btnGetBack" class="rotar180 seleccionable" src="img/whiteArrow.png" alt="imagen flecha señalando hacia la derecha"></div>
+                                    <div class="col-6 text-end text-danger pe-3 pt-2" id="contenedorEstado">
                                 </div>
                             </div>
                             <div class="text-center chakra-petch-bold fs-4" id="contenedorTitulo"><p>${evento.nombre.toUpperCase()}</p></div>
                             <div class="text-center fs-8" id="contenedorCentroCultural"><p>${evento.centroCultural.nombre} | ${evento.centroCultural.localidad.nombre}</p></div>
                             <div class="container-fluid text-center row">
                                 <div class="col-6 fs-7"><p>${evento.centroCultural.direccion}</p></div>
-                                <div class="col-6 chakra-petch-bold"><p>${evento.fechaHora.getHours()}:${evento.fechaHora.getMinutes()}</p></div>
+                                <div class="col-6 chakra-petch-bold"><p>${evento.fechaHora.getHours()}:${minutos} hs</p></div>
                             </div>
-                            <div class="text-center border-top border-light pt-1 pb-1 seleccionable" id="contenedorMaps"><a href="${evento.centroCultural.linkDireccion}">como llegar →</a></div>`
+                            <div class="text-center border-top border-light pt-1 pb-1 seleccionable" id="contenedorMaps"><a class="text-decoration-none text-white" href="${evento.centroCultural.linkDireccion}">como llegar →</a></div>`
     pantallaDataFecha.appendChild(headerEvento);
     const contDescripcion = document.createElement("div");
     contDescripcion.classList.add("row");
@@ -272,17 +282,43 @@ function dibujarDataFecha(eventoId){
     `
     pantallaDataFecha.appendChild(contDescripcion);
     contenedorMl.classList.add("overflow-y-auto");
-    contenedorMl.replaceChild(pantallaDataFecha, envolturaMl);
+    if(estadoActivo === "desktop"){
+        contenedorMl.replaceChild(pantallaDataFecha, envolturaMl);
+    }
+    else{
+        contenedorMain.replaceChild(pantallaDataFecha, envolturaMain);
+    }
+    const contenedorEstado = document.getElementById("contenedorEstado");
+    if(evento.estado !== "activo"){
+        contenedorEstado.innerHTML = `<p>CANCELADO</P>`;
+    }
     const btnGetBack = document.getElementById("btnGetBack");
     btnGetBack.addEventListener('click', () =>{
-        contenedorMl.replaceChild(envolturaMl, pantallaDataFecha);
+            if(estadoActivo === "desktop"){
+                contenedorMl.replaceChild(envolturaMl, pantallaDataFecha);
+            }
+            else {
+                contenedorMain.replaceChild(envolturaMain, pantallaDataFecha);
+                contenedorSectionFiltros.scrollIntoView();
+            }
     } )
+    headerEvento.scrollIntoView();
 }
 
 
 
+
+
 window.onresize = setearModo;
-window.onload = setearModo;
+window.onload = () => {
+    if(window.innerWidth >= 992){
+        estadoActivo = "desktop"
+        setearModoDesktop();
+    } else if (window.innerWidth < 992){
+        estadoActivo = "mobile"
+        setearModoMobile();
+    }
+}
 listaEventosFiltrada = filtrarListaEventos(eventos)
 fechas = generarListaDeFechas(eventos);
 mostrarEventos(eventos, fechas);

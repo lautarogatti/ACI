@@ -124,7 +124,7 @@ html{
 
 @media (min-width: 768px) {
   html{
-    font-size: 23px !important;
+    font-size: 30px !important;
   }
    .lblFiltro{
     font-size: 1.4rem !important;
@@ -132,6 +132,22 @@ html{
 }
 
 @media (min-width: 992px){
+  html{
+    font-size: 27px !important;
+  }
+
+  .tituloPrincipal{
+    font-size: 2rem;
+  }
+
+  .btnFiltro{
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .lblFiltro{
+    font-size: 1.1rem !important;
+  }
 .sectionTitle{
   height: 70%;
 }
@@ -156,24 +172,7 @@ html{
 
 
 @media (min-width: 1025px) {
-  html{
-    font-size: 27px !important;
-  }
 
-
-
-  .tituloPrincipal{
-    font-size: 1.8rem;
-  }
-
-  .btnFiltro{
-    height: 1.5rem;
-    width: 1.5rem;
-  }
-
-  .lblFiltro{
-    font-size: 1.1rem !important;
-  }
 }
 
 
