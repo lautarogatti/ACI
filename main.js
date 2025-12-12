@@ -19,8 +19,10 @@ const contenedorMain =document.getElementById("mainContainer");
 const contenedorMes = document.getElementById("contenedorMes");
 const envolturaMl = document.getElementById("envolturaMl");
 const envolturaMain = document.getElementById("envolturaMain");
+
 //constantes
-//fechas del mes
+
+//fechas del mes que contienen eventos
 let fechas = [];
 //opciones pertenecientes al filtro tipo de evento
 const opcFiltroEventos = ["eventos", tEmusica.nombre, tEteatro.nombre, tEfiesta.nombre, tEferia.nombre, tEludico.nombre, tEgastro.nombre, tEexpoArte.nombre, tEtaller.nombre];
@@ -32,9 +34,9 @@ const filtroEventos = new FiltroHandler(opcFiltroEventos);
 const filtroLugares = new FiltroHandler(opcFiltroLugares);
 //lista de eventos filtrada en base a las opciones elegidas en los filtros
 let listaEventosFiltrada = [];
-
+//variable contenedora del estado actual del display de la página ---mobile ---desktop
 let estadoActivo = "";
-
+//lista de contenedores de la página
 const listaContenedores = [envolturaMain, contenedorTf, contenedorSectionTitle, contenedorSectionFiltros, contenedorMl, contenedorMes, fechasContainer];
 
 //eventos
@@ -94,8 +96,26 @@ function filtrarListaEventos(listaEventos){
     }
     return listaFiltrada; 
 }
+//recibe una lista de eventos y retorna una lista de fechas que contengan minimo un evento ordenada de manera ascendente
 function generarListaDeFechas(listaEventos){
     return ordenarDeMenorAmayor(obtenerFechas(listaEventos));
+}
+//recibe una lista de eventos  y retorna una lista contenedora de las fechas en las cuales hay minimo un evento disponible
+function obtenerFechas(listaEventos){
+    let fechass = [];
+    let flagPrimero = true;
+    listaEventos.forEach(evento => {
+        let fecha = evento.fechaHora.getDate();
+        if(flagPrimero){
+            fechass.push(fecha);
+            flagPrimero = false; 
+        } else {
+            if(!fechass.includes(fecha)){
+                fechass.push(fecha);
+            }
+        }
+    });
+    return fechass;
 }
 //recibe una lista de eventos y retorna una lista filtrada de eventos que pertenezcan a el tipo de evento seleccionado en el filtro
 function filtrarListaPorTipoDeEvento(lista){
@@ -116,23 +136,6 @@ function filtrarListaPorLugar(lista){
         }
     });
     return listaFiltrada;
-}
-//recibe una lista de eventos  y retorna una lista contenedora de las fechas en las cuales hay minimo un evento disponible
-function obtenerFechas(listaEventos){
-    let fechass = [];
-    let flagPrimero = true;
-    listaEventos.forEach(evento => {
-        let fecha = evento.fechaHora.getDate();
-        if(flagPrimero){
-            fechass.push(fecha);
-            flagPrimero = false; 
-        } else {
-            if(!fechass.includes(fecha)){
-                fechass.push(fecha);
-            }
-        }
-    });
-    return fechass;
 }
 //recibe una lista de numeros y retorna una nueva contenedora de los mismos numeros pero ordenados de manera ascendente
 function ordenarDeMenorAmayor(listaDeNumeros){
@@ -210,7 +213,7 @@ function mostrarEventos(listaEventos, listaFechas){
         })
     }
 }
-
+// funcion encargada de actualizar las clases de css de los contenedores para visualizar la pagina en modo desktop
 function setearModoDesktop(){
     vaciarClassList(listaContenedores);
     envolturaMain.classList.add("container-fluid", "row");
@@ -221,7 +224,7 @@ function setearModoDesktop(){
     contenedorMes.classList.add("row", "container-fluid", "sticky-top");
     fechasContainer.classList.add("container-fluid", "flex-column", "flex-nowrap", "chakra-petch-regular", "align-items-center");
 }
-
+// funcion encargada de actualizar las clases de css de los contenedores para visualizar la pagina en modo mobile
 function setearModoMobile() {
     vaciarClassList(listaContenedores);
     envolturaMain.classList.add("container-fluid");
@@ -232,13 +235,13 @@ function setearModoMobile() {
     contenedorMes.classList.add("row", "container-fluid");
     fechasContainer.classList.add("row", "container-fluid", "vh-56", "overflow-y-auto", "flex-column", "flex-nowrap", "chakra-petch-regular")
 }
-
+// vacía las clases de css del objeto enviado por parametro
 function vaciarClassList(objetos){
     objetos.forEach(objeto => {
         objeto.className = "";
     });
 }
-
+//chequea la resolucion del viewport del cliente y updatea el display de la pagina si es necesario
 function setearModo(){
     if(window.innerWidth >= 992 && estadoActivo === "mobile"){
         setearModoDesktop();
@@ -248,7 +251,10 @@ function setearModo(){
         estadoActivo = "mobile"
     }
 }
+//variable contenedora de la estructura de html a mostrar cuando se clickea una fecha
 let pantallaDataFecha = document.createElement("div");
+
+//funcion encargada de armar la estructura de la seccion que muestra la data de una fecha y la inyecta en el contenedor necesario dependiendo del estado del display del sitio
 function dibujarDataFecha(eventoId){
     let evento = eventos.find(evento => evento.id === eventoId);
     let minutos;
