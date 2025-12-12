@@ -36,6 +36,7 @@ const filtroLugares = new FiltroHandler(opcFiltroLugares);
 let listaEventosFiltrada = [];
 //variable contenedora del estado actual del display de la página ---mobile ---desktop
 let estadoActivo = "";
+let pantallaDataFechaActiva = false;
 //lista de contenedores de la página
 const listaContenedores = [envolturaMain, contenedorTf, contenedorSectionTitle, contenedorSectionFiltros, contenedorMl, contenedorMes, fechasContainer];
 
@@ -207,6 +208,8 @@ function mostrarEventos(listaEventos, listaFechas){
                     let tituloEvento = document.getElementById(`tituloEvento${evento.id}`);
                     tituloEvento.addEventListener('click', () => {
                         dibujarDataFecha(evento.id);
+                        pantallaDataFechaActiva = true;
+                        console.log("pantalla fecha activa " + pantallaDataFechaActiva)
                     })
                 }
             })
@@ -246,10 +249,14 @@ function setearModo(){
     if(window.innerWidth >= 992 && estadoActivo === "mobile"){
         setearModoDesktop();
         estadoActivo = "desktop"
+        reacomodarPantallaDataFecha();
+        
     } else if (window.innerWidth < 992 && estadoActivo === "desktop"){
         setearModoMobile();
         estadoActivo = "mobile"
+        reacomodarPantallaDataFecha();
     }
+    
 }
 //variable contenedora de la estructura de html a mostrar cuando se clickea una fecha
 let pantallaDataFecha = document.createElement("div");
@@ -302,20 +309,39 @@ function dibujarDataFecha(eventoId){
     btnGetBack.addEventListener('click', () =>{
             if(estadoActivo === "desktop"){
                 contenedorMl.replaceChild(envolturaMl, pantallaDataFecha);
+                pantallaDataFechaActiva = false;
+                console.log("pantalla fecha activa " +pantallaDataFechaActiva);
             }
             else {
                 contenedorMain.replaceChild(envolturaMain, pantallaDataFecha);
                 contenedorSectionFiltros.scrollIntoView();
+                pantallaDataFechaActiva = false;
+                console.log("pantalla fecha activa " +pantallaDataFechaActiva);
             }
     } )
     headerEvento.scrollIntoView();
+
+}
+
+function reacomodarPantallaDataFecha(){
+    if(pantallaDataFechaActiva){
+        if(estadoActivo === "desktop"){
+            contenedorMain.replaceChild(envolturaMain, pantallaDataFecha);
+            contenedorMl.replaceChild(pantallaDataFecha, envolturaMl);
+            console.log("changed to desktop")
+        }
+        else{
+            contenedorMl.replaceChild(envolturaMl, pantallaDataFecha);
+            contenedorMain.replaceChild(pantallaDataFecha, envolturaMain);
+            console.log("changed to mobile")
+        }
+    }
 }
 
 
-
-
-
-window.onresize = setearModo;
+window.onresize = () =>{
+    setearModo();
+} 
 window.onload = () => {
     if(window.innerWidth >= 992){
         estadoActivo = "desktop"
