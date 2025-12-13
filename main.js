@@ -310,13 +310,11 @@ function dibujarDataFecha(eventoId){
             if(estadoActivo === "desktop"){
                 contenedorMl.replaceChild(envolturaMl, pantallaDataFecha);
                 pantallaDataFechaActiva = false;
-                console.log("pantalla fecha activa " +pantallaDataFechaActiva);
             }
             else {
                 contenedorMain.replaceChild(envolturaMain, pantallaDataFecha);
                 contenedorSectionFiltros.scrollIntoView();
                 pantallaDataFechaActiva = false;
-                console.log("pantalla fecha activa " +pantallaDataFechaActiva);
             }
     } )
     headerEvento.scrollIntoView();
@@ -328,12 +326,10 @@ function reacomodarPantallaDataFecha(){
         if(estadoActivo === "desktop"){
             contenedorMain.replaceChild(envolturaMain, pantallaDataFecha);
             contenedorMl.replaceChild(pantallaDataFecha, envolturaMl);
-            console.log("changed to desktop")
         }
         else{
             contenedorMl.replaceChild(envolturaMl, pantallaDataFecha);
             contenedorMain.replaceChild(pantallaDataFecha, envolturaMain);
-            console.log("changed to mobile")
         }
     }
 }
